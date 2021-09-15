@@ -8,5 +8,6 @@
     <mat-icon>add</mat-icon> Add Task
   </button>
 
-  <app-journey *ngFor="let journey of journeys" [journey]="journey" (edit)="editJourney($event)">
+  <app-journey *ngFor="let journey of journeys | async" [journey]="journey" (edit)="editJourney($event)">
   </app-journey>
+</div>

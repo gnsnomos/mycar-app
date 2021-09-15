@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { JourneyDialogComponent, JourneyDialogResult } from './journey-dialog/journey-dialog.component';
 import { Journey } from './journey/journey.model';
 
@@ -8,22 +10,19 @@ import { Journey } from './journey/journey.model';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) {
+  private readonly firebaseCollectionName = 'journeys';
 
+  constructor(private dialog: MatDialog, private store: AngularFirestore) {
   }
 
-  journeys: Journey[] = [
-    {
-      to: 'Spiti',
-      currentKlm: 121233
-    },
-    {
-      to: 'Douleia',
-      currentKlm: 121310
-    }
-  ];
+  journeys = this.store.collection(this.firebaseCollectionName).valueChanges({ idField: 'id' }) as Observable<Journey[]>;
+
+  async ngOnInit(): Promise<void> {
+    const journeys = await this.journeys;
+    console.log(journeys);
+  }
 
   newTask(): void {
     const dialogRef = this.dialog.open(JourneyDialogComponent, {
@@ -35,7 +34,10 @@ export class AppComponent {
     dialogRef
       .afterClosed()
       .subscribe((result: JourneyDialogResult) => {
-        if (result) { this.journeys.push(result.journey); }
+        if (!result) {
+          return;
+        }
+        this.store.collection(this.firebaseCollectionName).add(result.journey);
       });
   }
 
@@ -48,11 +50,13 @@ export class AppComponent {
       },
     });
     dialogRef.afterClosed().subscribe((result: JourneyDialogResult) => {
-      const journeyIndex = this.journeys.indexOf(journey);
+      if (!result) {
+        return;
+      }
       if (result.delete) {
-        this.journeys.splice(journeyIndex, 1);
+        this.store.collection(this.firebaseCollectionName).doc(journey.id).delete();
       } else {
-        this.journeys[journeyIndex] = journey;
+        this.store.collection(this.firebaseCollectionName).doc(journey.id).update(journey);
       }
     });
   }
