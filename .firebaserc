@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "mycar-app-2ff88": {
+      "hosting": {
+        "mycar-app": [
+          "mycar-app-2ff88"
+        ]
+      }
+    }
+  }
+}

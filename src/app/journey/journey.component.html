@@ -1,0 +1,6 @@
+<mat-card class="item" *ngIf="journey" (dblclick)="edit.emit(journey)">
+    <h2>{{ journey.to }}</h2>
+    <p>
+        {{ journey.currentKlm }}
+    </p>
+</mat-card>
