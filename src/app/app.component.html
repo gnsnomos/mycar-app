@@ -1,13 +1,6 @@
 <mat-toolbar color="primary">
-  <mat-icon>local_fire_department</mat-icon>
-  <span>Kanban Fire</span>
+    <mat-icon>local_fire_department</mat-icon>
+    <span>MyCar App</span>
 </mat-toolbar>
 
-<div class="content-wrapper">
-  <button (click)="newTask()" mat-button>
-    <mat-icon>add</mat-icon> Add Task
-  </button>
-
-  <app-journey *ngFor="let journey of journeys | async" [journey]="journey" (edit)="editJourney($event)">
-  </app-journey>
-</div>
+<router-outlet></router-outlet>

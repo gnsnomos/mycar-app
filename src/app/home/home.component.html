@@ -1,0 +1,8 @@
+<div class="content-wrapper">
+    <button (click)="newTask()" mat-button>
+        <mat-icon>add</mat-icon> Add Task
+    </button>
+    <router-outlet></router-outlet>
+    <app-journey *ngFor="let journey of journeys | async" [journey]="journey" (edit)="editJourney($event)">
+    </app-journey>
+</div>

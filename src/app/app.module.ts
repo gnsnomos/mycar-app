@@ -16,12 +16,18 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
+import { SignInComponent } from './signin/signin.component';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { ActivateLoginGuard } from './activate-login.guard';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     JourneyComponent,
-    JourneyDialogComponent
+    JourneyDialogComponent,
+    SignInComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +45,9 @@ import { environment } from 'src/environments/environment';
   ],
   entryComponents: [
     JourneyDialogComponent,
+    SignInComponent
   ],
-  providers: [],
+  providers: [AngularFireAuth, ActivateLoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
