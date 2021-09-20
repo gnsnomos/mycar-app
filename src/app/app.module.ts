@@ -10,17 +10,16 @@ import { MatCardModule } from '@angular/material/card';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
-import { SignInComponent } from './signin/signin.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivateLoginGuard } from './activate-login.guard';
 import { HomeComponent } from './home/home.component';
 import { JourneyModule } from './journey/journey.module';
 import { CommonModule } from '@angular/common';
+import { SignInModule } from './signin/signin.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent,
     HomeComponent
   ],
   imports: [
@@ -33,10 +32,8 @@ import { CommonModule } from '@angular/common';
     MatCardModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    JourneyModule
-  ],
-  entryComponents: [
-    SignInComponent
+    JourneyModule,
+    SignInModule
   ],
   providers: [AngularFireAuth, ActivateLoginGuard],
   bootstrap: [AppComponent]

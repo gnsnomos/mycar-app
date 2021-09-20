@@ -1,6 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./variables";
 
+@import "~@angular/material/theming";
+
+// always include only once per project
+@include mat-core();
+
+// import our custom theme
+@import "my-theme.scss";
+
+// specify theme class eg: <body class="my-theme"> ... </body>
+.my-theme {
+    // use our theme with angular-material-theme mixin
+    @include angular-material-theme($my-theme);
+}
+
 html,
 body {
     height: 100%;
@@ -9,8 +23,9 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 
-    background: #202020;
-    color: $body-color;
     overflow: hidden;
-    min-height: 100vh;
+
+    .mat-drawer-container {
+        min-height: 100vh;
+    }
 }

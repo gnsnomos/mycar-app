@@ -1,16 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Journey } from '../journey.model';
-
-export interface JourneyDialogData {
-  journey: Partial<Journey>;
-  enableDelete: boolean;
-}
-
-export interface JourneyDialogResult {
-  journey: Journey;
-  delete?: boolean;
-}
+import { IJourneyDialogData, JourneyDialogData } from '../journey.model';
 
 @Component({
   selector: 'app-journey-dialog',
@@ -18,18 +8,18 @@ export interface JourneyDialogResult {
   styleUrls: ['./journey-dialog.component.scss']
 })
 export class JourneyDialogComponent {
-  private backupJourney: Partial<Journey> = { ...this.data.journey };
+  public journeyData: Partial<IJourneyDialogData> = new JourneyDialogData(this.data);
 
   constructor(
     private dialogRef: MatDialogRef<JourneyDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: JourneyDialogData
+    @Inject(MAT_DIALOG_DATA) public data: IJourneyDialogData
   ) { }
 
   cancel(): void {
     if (this.data) {
-      this.data.journey.to = this.backupJourney.to;
-      this.data.journey.currentKlm = this.backupJourney.currentKlm;
-      this.data.journey.date = this.backupJourney.date;
+      this.data.journey.to = this.journeyData.journey.to;
+      this.data.journey.currentKlm = this.journeyData.journey.currentKlm;
+      this.data.journey.date = this.journeyData.journey.date;
       this.dialogRef.close(this.data);
     }
   }

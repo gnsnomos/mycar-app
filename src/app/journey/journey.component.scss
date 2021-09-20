@@ -1,42 +1,43 @@
+@import "~@angular/material/theming";
 @import "src/variables.scss";
 
 table {
     width: 100%;
-    background-color: $card-content-bg;
-    color: $card-text-color;
-
     .mat-header-cell,
     .mat-cell {
-        color: $card-text-color;
+        &:last-of-type,
+        &:first-of-type {
+            padding: 0;
+        }
     }
 }
 
 tr {
-    .example-detail-row {
+    &.journey-detail-row {
         height: 0;
     }
 
-    .example-element-row:not(.example-expanded-row) {
+    &.journey-row:not(.journey-expanded-row) {
         &:hover {
-            background: whitesmoke;
+            background: map_get($mat-grey, 700);
         }
 
         &:active {
-            background: #efefef;
+            background: map_get($mat-grey, 800);
         }
     }
 }
 
-.example-element-row td {
+.journey-row td {
     border-bottom-width: 0;
 }
 
-.example-element-detail {
+.journey-detail {
     overflow: hidden;
     display: flex;
 }
 
-.example-element-diagram {
+.journey-diagram {
     min-width: 80px;
     border: 2px solid black;
     padding: 8px;
@@ -45,45 +46,29 @@ tr {
     height: 104px;
 }
 
-.example-element-symbol {
-    font-weight: bold;
-    font-size: 40px;
-    line-height: normal;
-}
-
-.example-element-description {
+.journey-description {
     padding: 16px;
 }
 
-.example-element-description-attribution {
+.journey-description-attribution {
     opacity: 0.5;
 }
 
 mat-card {
     padding: 0;
-    background-color: $card-content-bg;
-    color: $card-text-color;
-
-    .mat-card-subtitle {
-        color: $card-text-color;
-    }
-
-    mat-card-header {
-        padding: 16px;
-        background-color: $cart-title-bg;
-    }
 
     mat-card-content,
-    mat-card-actions {
+    mat-card-actions,
+    mat-card-header {
         padding: 16px;
     }
-}
 
-mat-paginator {
-    background-color: $card-content-bg;
-    color: $card-text-color;
+    mat-card-content {
+        margin-bottom: initial;
+    }
 
-    .mat-icon-button {
-        color: $card-text-color;
+    & > .mat-card-actions:last-child {
+        padding-bottom: 16px;
+        margin-bottom: initial;
     }
 }

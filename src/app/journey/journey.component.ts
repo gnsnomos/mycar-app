@@ -1,10 +1,12 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs/internal/Observable';
-import { JourneyDialogComponent, JourneyDialogResult } from './journey-dialog/journey-dialog.component';
-import { Journey } from './journey.model';
+import { JourneyDialogComponent } from './journey-dialog/journey-dialog.component';
+import { IJourney, IJourneyDialogResult } from './journey.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-journey',
@@ -18,18 +20,23 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ]),
   ]
 })
-export class JourneyComponent implements AfterViewInit {
+export class JourneyComponent {
 
   private readonly firebaseCollectionName = 'journeys';
 
-  displayedColumns: string[] = ['number', 'title', 'edit'];
-  journeys$ = this.store.collection(this.firebaseCollectionName).valueChanges({ idField: 'id' }) as Observable<Journey[]>;
-  journeys = null;
+  @ViewChild(MatPaginator, null) paginator: MatPaginator;
 
-  constructor(private dialog: MatDialog, private store: AngularFirestore) { }
+  displayedColumns: string[] = ['to', 'currentKlm', 'date', 'edit'];
+  journeys$ = this.store.collection(this.firebaseCollectionName, ref => ref.orderBy('date')).valueChanges({ idField: 'id' }) as Observable<IJourney[]>;
+  journeys: MatTableDataSource<any> = null;
 
-  ngAfterViewInit(): void {
-    this.journeys$.subscribe(journeys => this.journeys = journeys);
+  private editDialogOpen = false;
+
+  constructor(private dialog: MatDialog, private store: AngularFirestore) {
+    this.journeys$.subscribe(journeys => {
+      this.journeys = new MatTableDataSource(journeys);
+      this.journeys.paginator = this.paginator;
+    });
   }
 
   newTask(): void {
@@ -41,16 +48,16 @@ export class JourneyComponent implements AfterViewInit {
     });
     dialogRef
       .afterClosed()
-      .subscribe((result: JourneyDialogResult) => {
-        if (!result.journey.to) {
+      .subscribe((result: IJourneyDialogResult) => {
+        if (!result || !result.journey.to) {
           return;
         }
         this.store.collection(this.firebaseCollectionName).add(result.journey);
       });
   }
 
-  editJourney(journey: Journey): void {
-    journey.date = new Date();
+  editJourney(journey: IJourney): void {
+    this.editDialogOpen = true;
     const dialogRef = this.dialog.open(JourneyDialogComponent, {
       width: '270px',
       data: {
@@ -58,16 +65,24 @@ export class JourneyComponent implements AfterViewInit {
         enableDelete: true,
       },
     });
-    dialogRef.afterClosed().subscribe((result: JourneyDialogResult) => {
-      if (!result) {
+    dialogRef.afterClosed().subscribe((result: IJourneyDialogResult) => {
+      this.editDialogOpen = false;
+      if (!result || !result.journey.id) {
         return;
       }
       if (result.delete) {
         this.store.collection(this.firebaseCollectionName).doc(journey.id).delete();
       } else {
-        this.store.collection(this.firebaseCollectionName).doc(journey.id).update(journey);
+        this.store.collection(this.firebaseCollectionName).doc(journey.id).update(result.journey);
       }
     });
   }
 
+  tableRowClicked(isAlreadyExpanded: boolean): boolean {
+    if (this.editDialogOpen) {
+      return true;
+    }
+    return isAlreadyExpanded;
+  }
 }
+

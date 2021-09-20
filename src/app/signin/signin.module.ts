@@ -7,32 +7,20 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { JourneyDialogComponent } from './journey-dialog/journey-dialog.component';
-import { JourneyComponent } from './journey.component';
+import { SignInComponent } from './signin.component';
 
 @NgModule({
     imports: [
         CommonModule,
-        BrowserAnimationsModule,
-        MatTableModule,
-        MatDialogModule,
-        MatInputModule,
-        FormsModule,
-        MatCardModule,
-        MatPaginatorModule,
         MatIconModule,
         MatButtonModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatTooltipModule
     ],
     declarations: [
-        JourneyComponent,
-        JourneyDialogComponent,
+        SignInComponent,
     ],
     entryComponents: [
-        JourneyDialogComponent
+        SignInComponent
     ],
-    exports: [JourneyComponent],
+    exports: [SignInComponent],
 })
-export class JourneyModule { }
+export class SignInModule { }
