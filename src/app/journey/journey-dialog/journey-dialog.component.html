@@ -1,0 +1,26 @@
+<mat-form-field>
+    <mat-label>To</mat-label>
+    <input matInput cdkFocusInitial [(ngModel)]="journeyData.editJourney.to" />
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>currentKlm</mat-label>
+    <input matInput [(ngModel)]="journeyData.editJourney.currentKlm" />
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>Value binding</mat-label>
+    <input matInput [matDatepicker]="datePicker" [(ngModel)]="journeyData.editJourney.date">
+    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+    <mat-datepicker #datePicker></mat-datepicker>
+</mat-form-field>
+
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="{ journey: journeyData.editJourney.saveData() }">OK</button>
+    <button mat-button (click)="cancel()">Cancel</button>
+
+    <button *ngIf="data.enableDelete" mat-fab color="primary" aria-label="Delete"
+        [mat-dialog-close]="{ journey: journeyData.journey, delete: true }">
+        <mat-icon>delete</mat-icon>
+    </button>
+</div>

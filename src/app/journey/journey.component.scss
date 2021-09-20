@@ -1,0 +1,74 @@
+@import "~@angular/material/theming";
+@import "src/variables.scss";
+
+table {
+    width: 100%;
+    .mat-header-cell,
+    .mat-cell {
+        &:last-of-type,
+        &:first-of-type {
+            padding: 0;
+        }
+    }
+}
+
+tr {
+    &.journey-detail-row {
+        height: 0;
+    }
+
+    &.journey-row:not(.journey-expanded-row) {
+        &:hover {
+            background: map_get($mat-grey, 700);
+        }
+
+        &:active {
+            background: map_get($mat-grey, 800);
+        }
+    }
+}
+
+.journey-row td {
+    border-bottom-width: 0;
+}
+
+.journey-detail {
+    overflow: hidden;
+    display: flex;
+}
+
+.journey-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+}
+
+.journey-description {
+    padding: 16px;
+}
+
+.journey-description-attribution {
+    opacity: 0.5;
+}
+
+mat-card {
+    padding: 0;
+
+    mat-card-content,
+    mat-card-actions,
+    mat-card-header {
+        padding: 16px;
+    }
+
+    mat-card-content {
+        margin-bottom: initial;
+    }
+
+    & > .mat-card-actions:last-child {
+        padding-bottom: 16px;
+        margin-bottom: initial;
+    }
+}
