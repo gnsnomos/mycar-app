@@ -24,7 +24,7 @@ export class JourneyComponent {
 
   private readonly firebaseCollectionName = 'journeys';
 
-  @ViewChild(MatPaginator, null) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   displayedColumns: string[] = ['to', 'currentKlm', 'date', 'edit'];
   journeys$ = this.store.collection(this.firebaseCollectionName, ref => ref.orderBy('date')).valueChanges({ idField: 'id' }) as Observable<IJourney[]>;
