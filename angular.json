@@ -134,5 +134,8 @@
       }
     }
   },
-  "defaultProject": "mycar-app"
+  "defaultProject": "mycar-app",
+  "cli": {
+    "analytics": false
+  }
 }
