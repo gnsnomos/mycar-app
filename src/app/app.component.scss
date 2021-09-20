@@ -1,12 +1,8 @@
 mat-toolbar {
     margin-bottom: 20px;
-}
+    background-color: #202020;
 
-mat-toolbar > span {
-    margin-left: 10px;
-}
-
-.content-wrapper {
-    max-width: 1400px;
-    margin: auto;
+    > span {
+        margin-left: 10px;
+    }
 }

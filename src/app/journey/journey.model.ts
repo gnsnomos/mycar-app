@@ -5,4 +5,5 @@ export interface Journey {
     fuelAmount?: number;
     fuelCost?: number;
     remainingKlm?: number;
+    date: Date;
 }

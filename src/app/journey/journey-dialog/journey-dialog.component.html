@@ -8,6 +8,13 @@
     <input matInput [(ngModel)]="data.journey.currentKlm" />
 </mat-form-field>
 
+<mat-form-field>
+    <mat-label>Value binding</mat-label>
+    <input matInput [matDatepicker]="datePicker" [value]="data.journey.date">
+    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+    <mat-datepicker #datePicker></mat-datepicker>
+</mat-form-field>
+
 <div mat-dialog-actions>
     <button mat-button [mat-dialog-close]="{ journey: data.journey }">OK</button>
     <button mat-button (click)="cancel()">Cancel</button>

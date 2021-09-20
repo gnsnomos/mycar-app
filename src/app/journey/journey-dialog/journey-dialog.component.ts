@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Journey } from '../journey/journey.model';
+import { Journey } from '../journey.model';
 
 export interface JourneyDialogData {
   journey: Partial<Journey>;
@@ -26,9 +26,12 @@ export class JourneyDialogComponent {
   ) { }
 
   cancel(): void {
-    this.data.journey.to = this.backupJourney.to;
-    this.data.journey.currentKlm = this.backupJourney.currentKlm;
-    this.dialogRef.close(this.data);
+    if (this.data) {
+      this.data.journey.to = this.backupJourney.to;
+      this.data.journey.currentKlm = this.backupJourney.currentKlm;
+      this.data.journey.date = this.backupJourney.date;
+      this.dialogRef.close(this.data);
+    }
   }
 
 }
