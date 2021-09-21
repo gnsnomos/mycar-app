@@ -1,8 +1,14 @@
 .content-wrapper {
-    display: flex;
-    justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 2em;
+  justify-items: center;
+
+  padding-bottom: 2rem;
 }
 
-app-journey {
-    width: 48%;
+@media screen and (min-width: 801px) {
+  .content-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
 }
