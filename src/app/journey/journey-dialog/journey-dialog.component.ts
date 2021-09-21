@@ -8,7 +8,7 @@ import { IJourneyDialogData, JourneyDialogData } from '../journey.model';
   styleUrls: ['./journey-dialog.component.scss']
 })
 export class JourneyDialogComponent {
-  public journeyData: Partial<IJourneyDialogData> = new JourneyDialogData(this.data);
+  public journeyData: Partial<JourneyDialogData> = new JourneyDialogData(this.data);
 
   constructor(
     private dialogRef: MatDialogRef<JourneyDialogComponent>,

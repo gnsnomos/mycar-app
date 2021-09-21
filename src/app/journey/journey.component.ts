@@ -29,6 +29,7 @@ export class JourneyComponent {
   displayedColumns: string[] = ['to', 'currentKlm', 'date', 'edit'];
   journeys$ = this.store.collection(this.firebaseCollectionName, ref => ref.orderBy('date')).valueChanges({ idField: 'id' }) as Observable<IJourney[]>;
   journeys: MatTableDataSource<any> = null;
+  expandedElement = null;
 
   private editDialogOpen = false;
 
