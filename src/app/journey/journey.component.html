@@ -8,13 +8,13 @@
   </mat-card-header>
   <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
   <mat-card-content>
-    <div class="example-table-container">
+    <div class="journey-table-container">
       <table
         mat-table
         [dataSource]="journeys"
-        class="example-table"
+        class="journey-table"
         matSort
-        matSortActive="created"
+        matSortActive="date"
         matSortDisableClear
         multiTemplateDataRows
         matSortDirection="desc"
@@ -39,6 +39,16 @@
           <td mat-cell *matCellDef="let row">{{ row.date * 1000 | date }}</td>
         </ng-container>
 
+        <!-- Distance Column -->
+        <ng-container matColumnDef="distance">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+            Distance
+          </th>
+          <td mat-cell *matCellDef="let row; let i = dataIndex">
+            {{ getDistance(row, i) }}
+          </td>
+        </ng-container>
+
         <!-- Edit Column -->
         <ng-container matColumnDef="edit">
           <th
@@ -49,6 +59,7 @@
           ></th>
           <td mat-cell *matCellDef="let row">
             <button
+              class="journey-edit-btn"
               (click)="editJourney(row)"
               mat-button
               matTooltip="Click to edit journey"

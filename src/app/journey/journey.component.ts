@@ -26,8 +26,8 @@ export class JourneyComponent {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  displayedColumns: string[] = ['to', 'currentKlm', 'date', 'edit'];
-  journeys$ = this.store.collection(this.firebaseCollectionName, ref => ref.orderBy('date')).valueChanges({ idField: 'id' }) as Observable<IJourney[]>;
+  displayedColumns: string[] = ['to', 'currentKlm', 'distance', 'date', 'edit'];
+  journeys$ = this.store.collection(this.firebaseCollectionName, ref => ref.orderBy('date', 'desc')).valueChanges({ idField: 'id' }) as Observable<IJourney[]>;
   journeys: MatTableDataSource<any> = null;
   expandedElement = null;
 
@@ -84,6 +84,14 @@ export class JourneyComponent {
       return true;
     }
     return isAlreadyExpanded;
+  }
+
+  getDistance(row: IJourney, index: number): number {
+    if (index === 0) {
+      return 0;
+    }
+
+    return this.journeys.data[index - 1].currentKlm - row.currentKlm;
   }
 }
 
