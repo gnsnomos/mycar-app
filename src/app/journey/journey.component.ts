@@ -1,12 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs/internal/Observable';
 import { JourneyDialogComponent } from './journey-dialog/journey-dialog.component';
 import { IJourney, IJourneyDialogResult } from './journey.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { JourneyService } from './journey.service';
 
 @Component({
   selector: 'app-journey',
@@ -22,12 +21,9 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class JourneyComponent {
 
-  private readonly firebaseCollectionName = 'journeys';
-
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   displayedColumns: string[] = ['to', 'currentKlm', 'distance', 'date', 'edit'];
-  journeys$ = this.store.collection(this.firebaseCollectionName, ref => ref.orderBy('currentKlm', 'desc')).valueChanges({ idField: 'id' }) as Observable<IJourney[]>;
   journeys: MatTableDataSource<any> = null;
   expandedElement = null;
   pageIndex = 0;
@@ -35,8 +31,8 @@ export class JourneyComponent {
 
   private editDialogOpen = false;
 
-  constructor(private dialog: MatDialog, private store: AngularFirestore) {
-    this.journeys$.subscribe(journeys => {
+  constructor(private dialog: MatDialog, private journeyService: JourneyService) {
+    this.journeyService.read().subscribe(journeys => {
       this.journeys = new MatTableDataSource(journeys);
       this.journeys.paginator = this.paginator;
     });
@@ -46,7 +42,7 @@ export class JourneyComponent {
     const dialogRef = this.dialog.open(JourneyDialogComponent, {
       width: '270px',
       data: {
-        journey: { currentKlm: this.journeys.data[0].currentKlm + 1 },
+        journey: { currentKlm: this.journeys?.data[0]?.currentKlm + 1 },
       },
     });
     dialogRef
@@ -55,7 +51,7 @@ export class JourneyComponent {
         if (!result || !result.journey.to) {
           return;
         }
-        this.store.collection(this.firebaseCollectionName).add(result.journey);
+        this.journeyService.save(result.journey);
       });
   }
 
@@ -74,9 +70,9 @@ export class JourneyComponent {
         return;
       }
       if (result.delete) {
-        this.store.collection(this.firebaseCollectionName).doc(journey.id).delete();
+        this.journeyService.delete(journey.id);
       } else {
-        this.store.collection(this.firebaseCollectionName).doc(journey.id).update(result.journey);
+        this.journeyService.update(journey.id, result.journey);
       }
     });
   }
