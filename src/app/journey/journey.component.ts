@@ -27,9 +27,11 @@ export class JourneyComponent {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   displayedColumns: string[] = ['to', 'currentKlm', 'distance', 'date', 'edit'];
-  journeys$ = this.store.collection(this.firebaseCollectionName, ref => ref.orderBy('date', 'desc')).valueChanges({ idField: 'id' }) as Observable<IJourney[]>;
+  journeys$ = this.store.collection(this.firebaseCollectionName, ref => ref.orderBy('currentKlm', 'desc')).valueChanges({ idField: 'id' }) as Observable<IJourney[]>;
   journeys: MatTableDataSource<any> = null;
   expandedElement = null;
+  pageIndex = 0;
+  pageSize = 5;
 
   private editDialogOpen = false;
 
@@ -44,7 +46,7 @@ export class JourneyComponent {
     const dialogRef = this.dialog.open(JourneyDialogComponent, {
       width: '270px',
       data: {
-        journey: {},
+        journey: { currentKlm: this.journeys.data[0].currentKlm + 1 },
       },
     });
     dialogRef
@@ -87,11 +89,20 @@ export class JourneyComponent {
   }
 
   getDistance(row: IJourney, index: number): number {
-    if (index === 0) {
+    if (index === 0 && this.pageIndex === 0) {
       return 0;
     }
 
-    return this.journeys.data[index - 1].currentKlm - row.currentKlm;
+    return this.journeys.data[this.getRowIndex(index)].currentKlm - row.currentKlm;
+  }
+
+  onPageChange(event: any): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+  }
+
+  private getRowIndex(index: number): number {
+    return this.pageIndex * this.pageSize + index - 1;
   }
 }
 

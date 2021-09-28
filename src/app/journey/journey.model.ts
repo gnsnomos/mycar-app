@@ -46,7 +46,7 @@ export class EditJourney implements Partial<IEditJourney> {
     constructor(journey: Partial<IJourney>) {
         this.id = journey.id;
         this.to = journey.to;
-        this.currentKlm = journey.currentKlm;
+        this.currentKlm = journey.currentKlm ? journey.currentKlm * 1 : 0;
         this.date = (journey.date ? new Date(journey.date * 1000) : new Date());
     }
 
@@ -57,7 +57,7 @@ export class EditJourney implements Partial<IEditJourney> {
     saveData(): IJourney {
         const result: IJourney = {
             to: this.to,
-            currentKlm: this.currentKlm,
+            currentKlm: this.currentKlm * 1,
             date: this.getDateForSaving()
         };
 
