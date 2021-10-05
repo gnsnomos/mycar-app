@@ -4,8 +4,7 @@ import { IJourneyDialogData, JourneyDialogData } from '../journey.model';
 
 @Component({
   selector: 'app-journey-dialog',
-  templateUrl: './journey-dialog.component.html',
-  styleUrls: ['./journey-dialog.component.scss']
+  templateUrl: './journey-dialog.component.html'
 })
 export class JourneyDialogComponent {
   public journeyData: Partial<JourneyDialogData> = new JourneyDialogData(this.data);

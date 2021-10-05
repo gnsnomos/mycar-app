@@ -3,23 +3,23 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../material.module';
-import { JourneyDialogComponent } from './journey-dialog/journey-dialog.component';
-import { JourneyComponent } from './journey.component';
+import { ServiceDialogComponent } from './service-dialog/service-dialog.component';
+import { UpcomingServiceComponent } from './upcoming-service/upcoming-service.component';
 
 @NgModule({
     imports: [
         CommonModule,
         BrowserAnimationsModule,
         MaterialModule,
-        FormsModule
+        FormsModule,
     ],
     declarations: [
-        JourneyComponent,
-        JourneyDialogComponent,
+        UpcomingServiceComponent,
+        ServiceDialogComponent
     ],
     entryComponents: [
-        JourneyDialogComponent
+        ServiceDialogComponent
     ],
-    exports: [JourneyComponent],
+    exports: [UpcomingServiceComponent],
 })
-export class JourneyModule { }
+export class ServiceModule { }

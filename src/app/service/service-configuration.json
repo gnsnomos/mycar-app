@@ -1,0 +1,26 @@
+{
+    "service": {
+        "tyres": {
+            "kilometers": 50000,
+            "date": "2y"
+        },
+        "oil": {
+            "kilometers": 7500
+        },
+        "oil-filter": {
+            "kilometers": 15000
+        },
+        "gasoline-filter": {
+            "kilometers": 15000
+        },
+        "spark-plug": {
+            "kilometers": 15000
+        },
+        "transmission-band": {
+            "kilometers": 45000
+        },
+        "breaks": {
+            "kilometers": 10000
+        }
+    }
+}

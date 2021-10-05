@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { JourneyModule } from './journey/journey.module';
 import { CommonModule } from '@angular/common';
 import { SignInModule } from './signin/signin.module';
+import { ServiceModule } from './service/service.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SignInModule } from './signin/signin.module';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     JourneyModule,
-    SignInModule
+    SignInModule,
+    ServiceModule
   ],
   providers: [AngularFireAuth, ActivateLoginGuard],
   bootstrap: [AppComponent]

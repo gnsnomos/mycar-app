@@ -5,6 +5,11 @@
   justify-items: center;
 
   padding-bottom: 2rem;
+
+  .content-item {
+    max-width: 90%;
+    width: 100%;
+  }
 }
 
 @media screen and (min-width: 801px) {

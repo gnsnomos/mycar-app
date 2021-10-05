@@ -32,7 +32,9 @@ export class JourneyComponent {
   private editDialogOpen = false;
 
   constructor(private dialog: MatDialog, private journeyService: JourneyService) {
-    this.journeyService.read().subscribe(journeys => {
+    this.journeyService.getLatestJourneys().subscribe(journeys => {
+      this.journeyService.latestJourney$.next(journeys[0]);
+
       this.journeys = new MatTableDataSource(journeys);
       this.journeys.paginator = this.paginator;
     });
@@ -51,7 +53,7 @@ export class JourneyComponent {
         if (!result || !result.journey.to) {
           return;
         }
-        this.journeyService.save(result.journey);
+        this.journeyService.saveJourney(result.journey);
       });
   }
 
@@ -70,9 +72,9 @@ export class JourneyComponent {
         return;
       }
       if (result.delete) {
-        this.journeyService.delete(journey.id);
+        this.journeyService.deleteJourney(journey.id);
       } else {
-        this.journeyService.update(journey.id, result.journey);
+        this.journeyService.updateJourney(journey.id, result.journey);
       }
     });
   }

@@ -78,8 +78,19 @@ mat-card {
   text-align: right;
 }
 
-.mat-column-currentKlm {
+.mat-column-date {
+  text-align: right;
+  width: 100px;
+}
+
+.mat-column-distance {
+  text-align: right;
   width: 60px;
+}
+
+.mat-column-currentKlm {
+  text-align: right;
+  width: 100px;
 }
 
 .mat-column-edit {

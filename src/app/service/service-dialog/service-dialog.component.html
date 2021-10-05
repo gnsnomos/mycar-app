@@ -1,0 +1,31 @@
+<mat-form-field>
+    <mat-label>Type</mat-label>
+    <input matInput cdkFocusInitial [(ngModel)]="serviceData.editService.type" />
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>Kilometers on service</mat-label>
+    <input type="number" matInput [(ngModel)]="serviceData.editService.currentKlm" />
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>Cost of service</mat-label>
+    <input type="number" matInput [(ngModel)]="serviceData.editService.cost" />
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>Date</mat-label>
+    <input matInput [matDatepicker]="datePicker" [(ngModel)]="serviceData.editService.date">
+    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+    <mat-datepicker #datePicker></mat-datepicker>
+</mat-form-field>
+
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="{ service: serviceData.editService.saveData() }">OK</button>
+    <button mat-button (click)="cancel()">Cancel</button>
+
+    <button *ngIf="data.enableDelete" mat-fab color="primary" aria-label="Delete"
+        [mat-dialog-close]="{ service: serviceData.service, delete: true }">
+        <mat-icon>delete</mat-icon>
+    </button>
+</div>

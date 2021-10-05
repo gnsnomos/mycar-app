@@ -1,0 +1,108 @@
+@import "~@angular/material/theming";
+@import "src/variables.scss";
+
+table {
+    width: 100%;
+    .mat-header-cell,
+    .mat-cell {
+        &:last-of-type,
+        &:first-of-type {
+            padding: 0;
+        }
+    }
+}
+
+tr {
+    th:not(:first-child) {
+        text-align: center;
+    }
+
+    &.service-detail-row {
+        height: 0;
+    }
+
+    &.service-row:not(.service-expanded-row) {
+        &:hover {
+            background: map_get($mat-grey, 700);
+        }
+
+        &:active {
+            background: map_get($mat-grey, 800);
+        }
+    }
+}
+
+.service-row td {
+    border-bottom-width: 0;
+}
+
+.service-detail {
+    overflow: hidden;
+    display: flex;
+}
+
+.service-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+}
+
+.service-description {
+    padding: 16px;
+}
+
+.service-description-attribution {
+    opacity: 0.5;
+}
+
+mat-card {
+    padding: 0;
+
+    mat-card-content,
+    mat-card-actions,
+    mat-card-header {
+        padding: 16px;
+    }
+
+    mat-card-content {
+        margin-bottom: initial;
+    }
+
+    & > .mat-card-actions:last-child {
+        padding-bottom: 16px;
+        margin-bottom: initial;
+    }
+}
+
+.mat-column-date {
+    text-align: right;
+    width: 100px;
+}
+
+.mat-column-cost {
+    text-align: right;
+    width: 60px;
+}
+
+.mat-column-nextService {
+    text-align: right;
+    width: 100px;
+}
+
+.mat-column-edit {
+    width: 20px;
+    padding: 0 0 0 1rem;
+
+    button {
+        min-width: 30px;
+        padding: 0;
+    }
+}
+
+/* add this style because material's first and last item have padding: 0 */
+table .mat-cell:last-of-type {
+    padding: 0 0 0 1rem;
+}
