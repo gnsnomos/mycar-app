@@ -1,6 +1,10 @@
-<mat-form-field>
-    <mat-label>Type</mat-label>
-    <input matInput cdkFocusInitial [(ngModel)]="serviceData.editService.type" />
+<mat-form-field appearance="fill">
+    <mat-label>Service Type</mat-label>
+    <mat-select [(ngModel)]="serviceData.editService.type">
+        <mat-option *ngFor="let service of services" [value]="service">
+            {{service}}
+        </mat-option>
+    </mat-select>
 </mat-form-field>
 
 <mat-form-field>

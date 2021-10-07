@@ -1,13 +1,23 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IServiceDialogData, ServiceDialogData } from '../service.model';
+import { IServiceDialogData, ServiceDialogData, Services } from '../service.model';
 
 @Component({
   selector: 'app-service-dialog',
   templateUrl: './service-dialog.component.html'
 })
 export class ServiceDialogComponent {
-  public serviceData: Partial<ServiceDialogData> = new ServiceDialogData(this.data);
+  serviceData: Partial<ServiceDialogData> = new ServiceDialogData(this.data);
+
+  services: Services[] = [
+    Services.tyres,
+    Services.oil,
+    Services.oilFilter,
+    Services.gasolineFilter,
+    Services.sparkPlug,
+    Services.transmissionBand,
+    Services.breaks
+  ];
 
   constructor(
     private dialogRef: MatDialogRef<ServiceDialogComponent>,

@@ -36,26 +36,24 @@ tr {
     border-bottom-width: 0;
 }
 
-.service-detail {
+.service-details {
     overflow: hidden;
     display: flex;
-}
+    flex-direction: column;
 
-.service-diagram {
-    min-width: 80px;
-    border: 2px solid black;
-    padding: 8px;
-    font-weight: lighter;
-    margin: 8px 0;
-    height: 104px;
-}
+    .service-description {
+        padding: 4px;
 
-.service-description {
-    padding: 16px;
-}
+        .service-description-title {
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
 
-.service-description-attribution {
-    opacity: 0.5;
+        .service-description-content {
+            padding-left: 7px;
+            font-size: 1rem;
+        }
+    }
 }
 
 mat-card {

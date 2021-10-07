@@ -39,6 +39,10 @@ export class JourneyService {
     this.store.collection(this.getCollection('journeys')).doc(docId).delete();
   }
 
+  getServiceConfiguration(): any {
+    // TODO: implement logic to retrieve configuration from database
+  }
+
   getDefaultService(): ServiceConfiguration {
     return this.defaultServiceConfiguration.service;
   }
