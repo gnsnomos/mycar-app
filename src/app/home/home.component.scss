@@ -2,12 +2,12 @@
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 2em;
+  column-gap: 2em;
   justify-items: center;
 
   padding-bottom: 2rem;
 
   .content-item {
-    max-width: 90%;
     width: 100%;
   }
 }

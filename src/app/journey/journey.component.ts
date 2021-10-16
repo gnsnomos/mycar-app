@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { JourneyDialogComponent } from './journey-dialog/journey-dialog.component';
 import { IJourney, IJourneyDialogResult } from './journey.model';
@@ -19,15 +19,16 @@ import { JourneyService } from './journey.service';
     ]),
   ]
 })
-export class JourneyComponent {
+export class JourneyComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @Input() maxItems: number;
 
   displayedColumns: string[] = ['to', 'currentKlm', 'distance', 'date', 'edit'];
   journeys: MatTableDataSource<any> = null;
   expandedElement = null;
   pageIndex = 0;
-  pageSize = 5;
+  pageSize: number;
 
   private editDialogOpen = false;
 
@@ -38,6 +39,10 @@ export class JourneyComponent {
       this.journeys = new MatTableDataSource(journeys);
       this.journeys.paginator = this.paginator;
     });
+  }
+
+  ngOnInit(): void {
+    this.pageSize = this.maxItems ?? 25;
   }
 
   newTask(): void {

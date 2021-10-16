@@ -18,6 +18,8 @@ import { JourneyModule } from './journey/journey.module';
 import { SignInModule } from './signin/signin.module';
 import { ServiceModule } from './service/service.module';
 import localeEl from '@angular/common/locales/el';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 registerLocaleData(localeEl);
 
@@ -34,6 +36,8 @@ registerLocaleData(localeEl);
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
+    MatSidenavModule,
+    MatListModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     JourneyModule,

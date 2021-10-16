@@ -1,9 +1,18 @@
 @import "../variables";
 
 mat-toolbar {
-    margin-bottom: 20px;
+  > button {
+    margin-right: 30px;
+  }
+  > span {
+    margin-left: 10px;
+  }
 
-    > span {
-        margin-left: 10px;
-    }
+  .spacer {
+    flex: 1 1 auto;
+  }
+}
+
+.sidenav-content {
+  padding: 20px;
 }
